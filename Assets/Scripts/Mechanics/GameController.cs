@@ -25,11 +25,12 @@ namespace Platformer.Mechanics
         //conveniently configured inside the inspector.
         public PlatformerModel model = Simulation.GetModel<PlatformerModel>();
 
-        public string endpoint = "https://sandbox.kinetic.host/";
+        public TextMeshPro TxtKinetic;
+        public string endpoint = "https://sandbox.kinetic.host";
         public string environment = "devnet";
         public int index = 407;
-        public static Keypair Keypair { get; set; }
         public static KineticSdk KineticSdk { get; private set; }
+        public static Keypair Keypair { get; set; }
 
         void OnEnable()
         {
@@ -57,6 +58,19 @@ namespace Platformer.Mechanics
                     logger: new Logger(Debug.unityLogger.logHandler)
                 )
             );
+
+            if (KineticSdk == null) TxtKinetic.text = "Not connected to Kinetic on Target API 28";
+            KineticSdk = await KineticSdk.Setup(
+                new KineticSdkConfig(
+                    index: index,
+                    endpoint: endpoint,
+                    environment: environment,
+                    logger: new Logger(Debug.unityLogger.logHandler)
+                )
+            );
+
+            Debug.Log(KineticSdk);
+            if (KineticSdk != null) TxtKinetic.text = "Connected to Kinetic!";
 
 
         }
