@@ -24,14 +24,14 @@ namespace Platformer.Mechanics
         public async void CreateAccount()
         {
             Debug.Log("CreateAccount!!!!!!!!!!!");
-            TxtAccountSignature.text = "Please wait! Transacting on blockchain...";
+            TxtAccountSignature.text = "Please wait! Creating your account on the blockchain...";
             Keypair Keypair = Platformer.Mechanics.GameController.Keypair;
             KineticSdk KineticSdk = Platformer.Mechanics.GameController.KineticSdk;
             var transaction = await KineticSdk.CreateAccount(Keypair, commitment: Commitment.Finalized);
             Debug.Log("Signature!");
             Debug.Log(transaction.Signature);
             Debug.Log(transaction);
-            TxtAccountSignature.text = transaction.Signature;
+            TxtAccountSignature.text = "Done! Your account is now ready on the Solana blockchain! Now let's get some Kin...";
             var explorerUrl = $"https://explorer.solana.com/tx/{transaction.Signature}?cluster=devnet";
             Application.OpenURL(explorerUrl);
 
