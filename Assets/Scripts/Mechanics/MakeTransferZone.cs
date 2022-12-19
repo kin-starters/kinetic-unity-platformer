@@ -26,13 +26,13 @@ namespace Platformer.Mechanics
             Debug.Log("MakeTransfer!!!!!!!!!!!");
             TxtMakeTransfer.text = "Please wait! Sending your Kin...";
 
-            Keypair Keypair = Platformer.Mechanics.GameController.Keypair;
-            KineticSdk KineticSdk = Platformer.Mechanics.GameController.KineticSdk;
+            Keypair UserKeypair = Platformer.Mechanics.GameController.UserKeypair;
+            KineticSdk Kinetic = Platformer.Mechanics.GameController.Kinetic;
 
-            var balance = await KineticSdk.GetBalance(account: Keypair.PublicKey);
+            var balance = await Kinetic.GetBalance(account: UserKeypair.PublicKey);
 
-            var transaction = await KineticSdk.MakeTransfer(
-                owner: Keypair,
+            var transaction = await Kinetic.MakeTransfer(
+                owner: UserKeypair,
                 amount: balance.Balance,
                 destination: "BfnSoyTz5kaL9besXC85RUWqhnFg7pRpBa4haNiG8K1n",
                 type: TransactionType.Spend,

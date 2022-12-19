@@ -19,11 +19,11 @@ namespace Platformer.Mechanics
         void OnTriggerEnter2D(Collider2D collider)
         {
             Debug.Log("Create Keypair!!!!!!!!!!!");
-            Keypair Keypair = Keypair.Random();
-            Debug.Log(Keypair.PublicKey);
-            Debug.Log(Keypair.Mnemonic);
-            Platformer.Mechanics.GameController.Keypair = Keypair;
-            TxtPublicKey.text = Keypair.PublicKey;
+            Keypair UserKeypair = Keypair.Random();
+            Debug.Log(UserKeypair.PublicKey);
+            Debug.Log(UserKeypair.Mnemonic);
+            Platformer.Mechanics.GameController.UserKeypair = UserKeypair;
+            TxtPublicKey.text = UserKeypair.PublicKey;
         }
     }
 }

@@ -26,9 +26,9 @@ namespace Platformer.Mechanics
             Debug.Log("RequestAirdrop!!!!!!!!!!!");
             TxtRequestAirdrop.text = "Please wait! Airdropping you some Kin...";
 
-            Keypair Keypair = Platformer.Mechanics.GameController.Keypair;
-            KineticSdk KineticSdk = Platformer.Mechanics.GameController.KineticSdk;
-            var transaction = await KineticSdk.RequestAirdrop(account: Keypair.PublicKey, amount: "1000", commitment: Commitment.Finalized);
+            Keypair UserKeypair = Platformer.Mechanics.GameController.UserKeypair;
+            KineticSdk Kinetic = Platformer.Mechanics.GameController.Kinetic;
+            var transaction = await Kinetic.RequestAirdrop(account: UserKeypair.PublicKey, amount: "1000", commitment: Commitment.Finalized);
             Debug.Log("Signature!");
             Debug.Log(transaction.Signature);
             Debug.Log(transaction);

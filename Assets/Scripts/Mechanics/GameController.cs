@@ -26,11 +26,8 @@ namespace Platformer.Mechanics
         public PlatformerModel model = Simulation.GetModel<PlatformerModel>();
 
         public TextMeshPro TxtKinetic;
-        public string endpoint = "https://sandbox.kinetic.host";
-        public string environment = "devnet";
-        public int index = 407;
-        public static KineticSdk KineticSdk { get; private set; }
-        public static Keypair Keypair { get; set; }
+        public static KineticSdk Kinetic { get; private set; }
+        public static Keypair UserKeypair { get; set; }
 
         void OnEnable()
         {
@@ -50,29 +47,29 @@ namespace Platformer.Mechanics
 
         async void Awake()
         {
-            KineticSdk = await KineticSdk.Setup(
-                new KineticSdkConfig(
-                    index: index,
-                    endpoint: endpoint,
-                    environment: environment,
-                    logger: new Logger(Debug.unityLogger.logHandler)
-                )
-            );
+            Debug.Log("Application.internetReachability");
+            Debug.Log(Application.internetReachability.ToString());
+            TxtKinetic.text = Application.internetReachability.ToString();
 
-            if (KineticSdk == null) TxtKinetic.text = "Not connected to Kinetic on Target API 28";
-            KineticSdk = await KineticSdk.Setup(
-                new KineticSdkConfig(
-                    index: index,
-                    endpoint: endpoint,
-                    environment: environment,
-                    logger: new Logger(Debug.unityLogger.logHandler)
-                )
-            );
+            try
+            {
+                Kinetic = await KineticSdk.Setup(
+                    new KineticSdkConfig(
+                        index: 407,
+                        endpoint: "https://sandbox.kinetic.host",
+                        environment: "devnet",
+                        logger: new Logger(Debug.unityLogger.logHandler)
+                    )
+                );
+            }
+            catch (Exception error)
+            {
+                Debug.Log(error);
+                TxtKinetic.text = error.Message;
+            }
 
-            Debug.Log(KineticSdk);
-            if (KineticSdk != null) TxtKinetic.text = "Connected to Kinetic!";
-
-
+            Debug.Log(Kinetic.ToString());
+            if (Kinetic != null) TxtKinetic.text = "Connected to Kinetic!";
         }
     }
 }

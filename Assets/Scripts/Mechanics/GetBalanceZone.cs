@@ -27,9 +27,9 @@ namespace Platformer.Mechanics
             Debug.Log("GetBalance!!!!!!!!!!!");
             TxtBalance.text = "Please wait! Getting your balance from blockchain...";
 
-            Keypair Keypair = Platformer.Mechanics.GameController.Keypair;
-            KineticSdk KineticSdk = Platformer.Mechanics.GameController.KineticSdk;
-            var balance = await KineticSdk.GetBalance(Keypair.PublicKey);
+            Keypair UserKeypair = Platformer.Mechanics.GameController.UserKeypair;
+            KineticSdk Kinetic = Platformer.Mechanics.GameController.Kinetic;
+            var balance = await Kinetic.GetBalance(UserKeypair.PublicKey);
             Debug.Log("Balance!");
             Debug.Log(balance.Balance);
             TxtBalance.text = $"{balance.Balance} Kin";

@@ -20,8 +20,10 @@ namespace Platformer.Mechanics
         public async void CloseAccount()
         {
             Debug.Log("CloseAccount!!!!!!!!!!!");
-            Keypair Keypair = Platformer.Mechanics.GameController.Keypair;
-            KineticSdk KineticSdk = Platformer.Mechanics.GameController.KineticSdk;
+            Keypair UserKeypair = Platformer.Mechanics.GameController.UserKeypair;
+            Debug.Log(UserKeypair.ToString());
+            KineticSdk Kinetic = Platformer.Mechanics.GameController.Kinetic;
+            Debug.Log(Kinetic.ToString());
             // var transaction = await KineticSdk.CloseAccount(Keypair.PublicKey);
             // Debug.Log("Signature!");
             // Debug.Log(transaction.Signature);

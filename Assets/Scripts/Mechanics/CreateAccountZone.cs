@@ -24,10 +24,14 @@ namespace Platformer.Mechanics
         public async void CreateAccount()
         {
             Debug.Log("CreateAccount!!!!!!!!!!!");
+
             TxtAccountSignature.text = "Please wait! Creating your account on the blockchain...";
-            Keypair Keypair = Platformer.Mechanics.GameController.Keypair;
-            KineticSdk KineticSdk = Platformer.Mechanics.GameController.KineticSdk;
-            var transaction = await KineticSdk.CreateAccount(Keypair, commitment: Commitment.Finalized);
+            Keypair UserKeypair = Platformer.Mechanics.GameController.UserKeypair;
+            KineticSdk Kinetic = Platformer.Mechanics.GameController.Kinetic;
+
+            if (Kinetic == null) Debug.Log("No Kinetic SDK!!!!");
+
+            var transaction = await Kinetic.CreateAccount(owner: UserKeypair, commitment: Commitment.Finalized);
             Debug.Log("Signature!");
             Debug.Log(transaction.Signature);
             Debug.Log(transaction);
