@@ -28,6 +28,12 @@ namespace Platformer.Mechanics
         public TextMeshPro TxtKinetic;
         public static KineticSdk Kinetic { get; private set; }
         public static Keypair UserKeypair { get; set; }
+        public static string ServerPublicKey { get; set; }
+        public static string KineticType { get; set; } = "client";
+
+        public static int index = 407;
+        public static string endpoint = "https://sandbox.kinetic.host";
+        public static string environment = "devnet";
 
         void OnEnable()
         {
@@ -50,14 +56,16 @@ namespace Platformer.Mechanics
             Debug.Log("Application.internetReachability");
             Debug.Log(Application.internetReachability.ToString());
             TxtKinetic.text = Application.internetReachability.ToString();
+            KineticType = "client";
 
             try
             {
+                Debug.Log("Setting up SDK");
                 Kinetic = await KineticSdk.Setup(
                     new KineticSdkConfig(
-                        index: 407,
-                        endpoint: "https://sandbox.kinetic.host",
-                        environment: "devnet",
+                        index: index,
+                        endpoint: endpoint,
+                        environment: environment,
                         logger: new Logger(Debug.unityLogger.logHandler)
                     )
                 );
@@ -70,6 +78,11 @@ namespace Platformer.Mechanics
 
             Debug.Log(Kinetic.ToString());
             if (Kinetic != null) TxtKinetic.text = "Connected to Kinetic!";
+        }
+
+        async void Client()
+        {
+
         }
     }
 }
